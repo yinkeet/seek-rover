@@ -1,5 +1,5 @@
 services:
-    adminer:
-        image: adminer
+    redisinsight:
+        image: redis/redisinsight:latest
         ports:
-            - 8081:8080
+            - 5540:5540
