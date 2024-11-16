@@ -1,0 +1,57 @@
+services:
+    frontend:
+        extends:
+            file: common.yaml
+            service: frontend
+        environment:
+            NODE_ENV: development
+        depends_on:
+            engine:
+                condition: service_healthy
+        command:
+            - /bin/sh
+            - -c
+            - |
+                if [ ! -d "node_modules" ]
+                then
+                    npm install
+                fi
+                npm run dev
+
+    engine:
+        extends:
+            file: common.yaml
+            service: engine
+        # depends_on:
+        #     db:
+        #         condition: service_healthy
+        healthcheck:
+            test: ["CMD", "curl", "-f", "http://localhost:8080/healthz"]
+            interval: 1s
+            timeout: 5s
+            retries: 10
+        command:
+            - /bin/sh
+            - -c
+            - |
+                deno task dev
+
+    # db:
+    #     image: mysql:8.0
+    #     env_file:
+    #         - .env
+    #     environment:
+    #         TZ: Asia/Kuala_Lumpur
+    #     volumes:
+    #         - ./mysql:/docker-entrypoint-initdb.d
+    #         - db-volume:/var/lib/mysql
+    #     ports:
+    #         - "3306:3306"
+    #     healthcheck:
+    #         test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+    #         interval: 10s
+    #         timeout: 5s
+    #         retries: 5
+
+volumes:
+    db-volume:
