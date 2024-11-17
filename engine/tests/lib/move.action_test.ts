@@ -9,7 +9,7 @@ Deno.test('Move action with string arguments', () => {
         x: 1,
         y: 1,
         direction: Direction.NORTH,
-        translationOffset: translationRingBuffer.get(Direction.NORTH)[0],
+        translationOffset: translationRingBuffer.get(Direction.NORTH),
         levelData: levels['5-5-blank'],
     };
     const action = new MoveAction(metadata);
@@ -25,7 +25,7 @@ Deno.test('Move north', () => {
         x: 1,
         y: 1,
         direction: Direction.NORTH,
-        translationOffset: translationRingBuffer.get(Direction.NORTH)[0],
+        translationOffset: translationRingBuffer.get(Direction.NORTH),
         levelData: levels['5-5-blank'],
     };
     const action = new MoveAction(metadata);
@@ -41,7 +41,7 @@ Deno.test('Move south', () => {
         x: 1,
         y: 1,
         direction: Direction.SOUTH,
-        translationOffset: translationRingBuffer.get(Direction.SOUTH)[0],
+        translationOffset: translationRingBuffer.get(Direction.SOUTH),
         levelData: levels['5-5-blank'],
     };
     const action = new MoveAction(metadata);
@@ -57,7 +57,7 @@ Deno.test('Move east', () => {
         x: 1,
         y: 1,
         direction: Direction.EAST,
-        translationOffset: translationRingBuffer.get(Direction.EAST)[0],
+        translationOffset: translationRingBuffer.get(Direction.EAST),
         levelData: levels['5-5-blank'],
     };
     const action = new MoveAction(metadata);
@@ -73,7 +73,7 @@ Deno.test('Move west', () => {
         x: 1,
         y: 1,
         direction: Direction.WEST,
-        translationOffset: translationRingBuffer.get(Direction.WEST)[0],
+        translationOffset: translationRingBuffer.get(Direction.WEST),
         levelData: levels['5-5-blank'],
     };
     const action = new MoveAction(metadata);
@@ -89,7 +89,7 @@ Deno.test('Move north collide with wall', () => {
         x: 0,
         y: 4,
         direction: Direction.NORTH,
-        translationOffset: translationRingBuffer.get(Direction.NORTH)[0],
+        translationOffset: translationRingBuffer.get(Direction.NORTH),
         levelData: levels['5-5-blank'],
     };
     const action = new MoveAction(metadata);
@@ -105,7 +105,7 @@ Deno.test('Move south collide with wall', () => {
         x: 0,
         y: 0,
         direction: Direction.SOUTH,
-        translationOffset: translationRingBuffer.get(Direction.SOUTH)[0],
+        translationOffset: translationRingBuffer.get(Direction.SOUTH),
         levelData: levels['5-5-blank'],
     };
     const action = new MoveAction(metadata);
@@ -121,7 +121,7 @@ Deno.test('Move east collide with wall', () => {
         x: 4,
         y: 0,
         direction: Direction.EAST,
-        translationOffset: translationRingBuffer.get(Direction.EAST)[0],
+        translationOffset: translationRingBuffer.get(Direction.EAST),
         levelData: levels['5-5-blank'],
     };
     const action = new MoveAction(metadata);
@@ -137,7 +137,7 @@ Deno.test('Move west collide with wall', () => {
         x: 0,
         y: 0,
         direction: Direction.WEST,
-        translationOffset: translationRingBuffer.get(Direction.WEST)[0],
+        translationOffset: translationRingBuffer.get(Direction.WEST),
         levelData: levels['5-5-blank'],
     };
     const action = new MoveAction(metadata);

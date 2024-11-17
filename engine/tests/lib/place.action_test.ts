@@ -9,7 +9,7 @@ Deno.test('Place action with undefined arguments', () => {
         x: -1,
         y: -1,
         direction: Direction.NORTH,
-        translationOffset: translationRingBuffer.get(Direction.NORTH)[0],
+        translationOffset: translationRingBuffer.get(Direction.NORTH),
         levelData: levels['5-5-blank'],
     });
     assertEquals(action.perform(undefined), false);
@@ -20,7 +20,7 @@ Deno.test('Place action with insufficient arguments', () => {
         x: -1,
         y: -1,
         direction: Direction.NORTH,
-        translationOffset: translationRingBuffer.get(Direction.NORTH)[0],
+        translationOffset: translationRingBuffer.get(Direction.NORTH),
         levelData: levels['5-5-blank'],
     });
     assertEquals(action.perform(['a', '1']), false);
@@ -31,7 +31,7 @@ Deno.test('Place action with invalid x argument', () => {
         x: -1,
         y: -1,
         direction: Direction.NORTH,
-        translationOffset: translationRingBuffer.get(Direction.NORTH)[0],
+        translationOffset: translationRingBuffer.get(Direction.NORTH),
         levelData: levels['5-5-blank'],
     });
     assertEquals(action.perform(['a', '1', 'NORTH']), false);
@@ -42,7 +42,7 @@ Deno.test('Place action with invalid y argument', () => {
         x: -1,
         y: -1,
         direction: Direction.NORTH,
-        translationOffset: translationRingBuffer.get(Direction.NORTH)[0],
+        translationOffset: translationRingBuffer.get(Direction.NORTH),
         levelData: levels['5-5-blank'],
     });
     assertEquals(action.perform(['1', 'a', 'NORTH']), false);
@@ -53,7 +53,7 @@ Deno.test('Place action with invalid direction argument', () => {
         x: -1,
         y: -1,
         direction: Direction.NORTH,
-        translationOffset: translationRingBuffer.get(Direction.NORTH)[0],
+        translationOffset: translationRingBuffer.get(Direction.NORTH),
         levelData: levels['5-5-blank'],
     });
     assertEquals(action.perform(['1', 'a', 'SOMETHING']), false);
@@ -64,7 +64,7 @@ Deno.test('Place action with valid arguments', () => {
         x: -1,
         y: -1,
         direction: Direction.NORTH,
-        translationOffset: translationRingBuffer.get(Direction.NORTH)[0],
+        translationOffset: translationRingBuffer.get(Direction.NORTH),
         levelData: levels['5-5-blank'],
     };
     const action = new PlaceAction(metadata);
