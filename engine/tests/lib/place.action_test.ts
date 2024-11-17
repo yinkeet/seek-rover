@@ -10,7 +10,7 @@ Deno.test('Place action with undefined arguments', () => {
         y: -1,
         direction: Direction.NORTH,
         translationOffset: translationRingBuffer.get(Direction.NORTH)[0],
-        levelMap: levels['5-5-blank'],
+        levelData: levels['5-5-blank'],
     });
     assertEquals(action.perform(undefined), false);
 });
@@ -21,7 +21,7 @@ Deno.test('Place action with insufficient arguments', () => {
         y: -1,
         direction: Direction.NORTH,
         translationOffset: translationRingBuffer.get(Direction.NORTH)[0],
-        levelMap: levels['5-5-blank'],
+        levelData: levels['5-5-blank'],
     });
     assertEquals(action.perform(['a', '1']), false);
 });
@@ -32,7 +32,7 @@ Deno.test('Place action with invalid x argument', () => {
         y: -1,
         direction: Direction.NORTH,
         translationOffset: translationRingBuffer.get(Direction.NORTH)[0],
-        levelMap: levels['5-5-blank'],
+        levelData: levels['5-5-blank'],
     });
     assertEquals(action.perform(['a', '1', 'NORTH']), false);
 });
@@ -43,7 +43,7 @@ Deno.test('Place action with invalid y argument', () => {
         y: -1,
         direction: Direction.NORTH,
         translationOffset: translationRingBuffer.get(Direction.NORTH)[0],
-        levelMap: levels['5-5-blank'],
+        levelData: levels['5-5-blank'],
     });
     assertEquals(action.perform(['1', 'a', 'NORTH']), false);
 });
@@ -54,7 +54,7 @@ Deno.test('Place action with invalid direction argument', () => {
         y: -1,
         direction: Direction.NORTH,
         translationOffset: translationRingBuffer.get(Direction.NORTH)[0],
-        levelMap: levels['5-5-blank'],
+        levelData: levels['5-5-blank'],
     });
     assertEquals(action.perform(['1', 'a', 'SOMETHING']), false);
 });
@@ -65,7 +65,7 @@ Deno.test('Place action with valid arguments', () => {
         y: -1,
         direction: Direction.NORTH,
         translationOffset: translationRingBuffer.get(Direction.NORTH)[0],
-        levelMap: levels['5-5-blank'],
+        levelData: levels['5-5-blank'],
     };
     const action = new PlaceAction(metadata);
     assertEquals(action.perform(['1', '2', 'SOUTH']), true);
