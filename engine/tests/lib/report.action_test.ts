@@ -15,7 +15,7 @@ Deno.test('Report action', () => {
         translationOffset: translationRingBuffer.get(Direction.NORTH),
         levelData: levels['5-5-blank'],
     };
-    const action = new ReportAction(metadata, 2);
+    const action = new ReportAction(metadata);
     assertEquals(action.perform(undefined), true);
     assertSpyCall(logSpy, 0, {
         args: ["0,0,NORTH"]
