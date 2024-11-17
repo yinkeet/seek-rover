@@ -1,3 +1,3 @@
 export interface Action {
-    perform: (args: string[] | undefined) => boolean;
+    perform: (args?: string[]) => boolean;
 }
