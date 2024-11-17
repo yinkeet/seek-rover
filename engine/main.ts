@@ -1,4 +1,4 @@
-import { input, select, Separator } from 'npm:@inquirer/prompts';
+import { input } from 'npm:@inquirer/prompts';
 import { Direction, translationRingBuffer } from './lib/direction.ts';
 import { levels } from '/levels/index.ts';
 import { Metadata } from './lib/metadata.ts';
@@ -9,13 +9,6 @@ import { MoveAction } from './lib/move.action.ts';
 import { RotateAction } from './lib/rotate.action.ts';
 import { ReportAction } from './lib/report.action.ts';
 import { GameState } from './lib/gamestate.ts';
-import {
-    PLACE_COMMAND,
-    MOVE_COMMAND,
-    LEFT_COMMAND,
-    RIGHT_COMMAND,
-    REPORT_COMMAND
-} from '/lib/constants.ts'
 
 let gameState = GameState.Loading;
 
@@ -24,7 +17,6 @@ const angularStep = 2;
 
 // Create a metadata object
 const metadata: Metadata = {
-    placed: false,
     x: -1,
     y: -1,
     direction: Direction.NORTH,
