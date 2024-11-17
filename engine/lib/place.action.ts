@@ -6,7 +6,7 @@ import { z } from 'npm:zod';
 export class PlaceAction implements Action {
     constructor(public metadata: Metadata) {}
 
-    perform(args: string[] | undefined): boolean {
+    perform(args?: string[]): boolean {
         if (args === undefined) return false;
         if (args.length != 3) return false;
 
