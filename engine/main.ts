@@ -1,24 +1,67 @@
-// @deno-types="npm:@types/express@5"
-import express, { NextFunction, Request, Response } from "npm:express@5";
-// @deno-types="npm:@types/node"
-import process from "node:process";
+import { input, select, Separator } from 'npm:@inquirer/prompts';
+import { Direction, translationRingBuffer } from './lib/direction.ts';
+import { levels } from '/levels/index.ts';
+import { Metadata } from './lib/metadata.ts';
+import { parseCommand } from './lib/command-parser.ts';
+import { PlaceAction } from './lib/place.action.ts';
+import { Action } from './lib/action.ts';
+import { MoveAction } from './lib/move.action.ts';
+import { RotateAction } from './lib/rotate.action.ts';
+import { ReportAction } from './lib/report.action.ts';
+import { GameState } from './lib/gamestate.ts';
+import {
+    PLACE_COMMAND,
+    MOVE_COMMAND,
+    LEFT_COMMAND,
+    RIGHT_COMMAND,
+    REPORT_COMMAND
+} from '/lib/constants.ts'
 
-const app = express();
-const port = Number(Deno.env.get("PORT")) || 8080;
+let gameState = GameState.Loading;
 
-const reqLogger = function (req: Request, _res: Response, next: NextFunction) {
-  console.info(`${req.method} request to "${req.url}" by ${req.hostname}`);
-  next();
+// Angular steps
+const angularStep = 2;
+
+// Create a metadata object
+const metadata: Metadata = {
+    placed: false,
+    x: -1,
+    y: -1,
+    direction: Direction.NORTH,
+    translationOffset: translationRingBuffer.get(Direction.NORTH),
+    levelData: levels['5-5-blank'],
 };
 
-app.use(reqLogger);
+// Load all actions
+const actions: { [id: string]: Action } = {
+    'PLACE': new PlaceAction(metadata),
+    'MOVE': new MoveAction(metadata),
+    'LEFT': new RotateAction(metadata, -angularStep),
+    'RIGHT': new RotateAction(metadata, angularStep),
+    'REPORT': new ReportAction(metadata),
+};
 
-app.get('/healthz', (_req: Request, res: Response) => {
-  res.status(200).json({
-    uptime: process.uptime()
-  });
-});
+gameState = GameState.Init;
 
-app.listen(port, () => {
-  console.log(`Listening on ${port} ...`);
-});
+while (gameState === GameState.Init) {
+    const command = await input({ message: 'Enter your command:' });
+    const [argc, argv] = parseCommand(command.trim());
+    if (!(argc in actions)) {
+        console.error('Invalid command');
+    } else if (argc.toUpperCase() !== 'PLACE') {
+        console.log('Place a rover to start');
+    } else {
+        actions[argc].perform(argv);
+        gameState = GameState.Running;
+    }
+}
+
+while (gameState === GameState.Running) {
+    const command = await input({ message: 'Enter your command:' });
+    const [argc, argv] = parseCommand(command.trim());
+    if (!(argc in actions)) {
+        console.error('Invalid command');
+    } else {
+        actions[argc].perform(argv);
+    }
+}
