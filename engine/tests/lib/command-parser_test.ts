@@ -2,7 +2,7 @@ import { parseCommand } from '/lib/command-parser.ts';
 import { assertEquals } from "jsr:@std/assert";
 
 Deno.test("Parse command with extra arguments", () => {
-    const [argc, argv] = parseCommand('PLACE 0,0,NORTH');
+    const [argc, argv] = parseCommand('place 0,0,north');
     assertEquals(argc, 'PLACE');
     assertEquals(argv, ['0', '0', 'NORTH']);
 });
