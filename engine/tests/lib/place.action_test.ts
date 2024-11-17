@@ -6,6 +6,8 @@ import { assertEquals } from 'jsr:@std/assert';
 import { assertSpyCall, spy } from 'jsr:@std/testing/mock';
 
 Deno.test('Place action with undefined arguments', () => {
+    const logSpy = spy(console, 'error');
+
     const action = new PlaceAction({
         x: -1,
         y: -1,
@@ -14,9 +16,15 @@ Deno.test('Place action with undefined arguments', () => {
         levelData: levels['5-5-blank'],
     });
     assertEquals(action.perform(undefined), false);
+    assertSpyCall(logSpy, 0, {
+        args: ['Error: X, Y and direction required'],
+    });
+    logSpy.restore();
 });
 
 Deno.test('Place action with insufficient arguments', () => {
+    const logSpy = spy(console, 'error');
+
     const action = new PlaceAction({
         x: -1,
         y: -1,
@@ -25,6 +33,10 @@ Deno.test('Place action with insufficient arguments', () => {
         levelData: levels['5-5-blank'],
     });
     assertEquals(action.perform(['a', '1']), false);
+    assertSpyCall(logSpy, 0, {
+        args: ['Error: X, Y and direction required'],
+    });
+    logSpy.restore();
 });
 
 Deno.test('Place action with invalid x argument', () => {

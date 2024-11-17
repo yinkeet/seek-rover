@@ -7,8 +7,10 @@ export class PlaceAction implements Action {
     constructor(public metadata: Metadata) {}
 
     perform(args?: string[]): boolean {
-        if (args === undefined) return false;
-        if (args.length != 3) return false;
+        if (args === undefined || args.length != 3) {
+            console.error('Error: X, Y and direction required')
+            return false;
+        }
 
         args[2] = args[2].toUpperCase();
 
