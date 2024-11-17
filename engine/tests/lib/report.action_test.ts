@@ -18,6 +18,6 @@ Deno.test('Report action', () => {
     const action = new ReportAction(metadata);
     assertEquals(action.perform(undefined), true);
     assertSpyCall(logSpy, 0, {
-        args: ["0,0,NORTH"]
+        args: ["Output: 0,0,NORTH"]
     });
 });

@@ -7,7 +7,7 @@ export class ReportAction implements Action {
 
     perform(_args?: string[]): boolean {
         const directionName = Direction[this.metadata.direction];
-        console.log(`${this.metadata.x},${this.metadata.y},${directionName}`)
+        console.log(`Output: ${this.metadata.x},${this.metadata.y},${directionName}`)
         return true;
     }
 }
