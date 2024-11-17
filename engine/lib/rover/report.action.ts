@@ -1,6 +1,6 @@
 import { Action } from './action.ts';
 import { Direction } from '/lib/direction.ts';
-import { Metadata } from './metadata.ts';
+import { Metadata } from '/lib/metadata.ts';
 
 export class ReportAction implements Action {
     constructor(public metadata: Metadata) {}

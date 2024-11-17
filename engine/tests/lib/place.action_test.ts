@@ -1,8 +1,9 @@
 import { levels } from '/levels/index.ts';
 import { Metadata } from '../../lib/metadata.ts';
 import { Direction, translationRingBuffer } from '/lib/direction.ts';
-import { PlaceAction } from '/lib/place.action.ts';
+import { PlaceAction } from '/lib/rover/place.action.ts';
 import { assertEquals } from 'jsr:@std/assert';
+import { assertSpyCall, spy } from 'jsr:@std/testing/mock';
 
 Deno.test('Place action with undefined arguments', () => {
     const action = new PlaceAction({
@@ -27,6 +28,8 @@ Deno.test('Place action with insufficient arguments', () => {
 });
 
 Deno.test('Place action with invalid x argument', () => {
+    const logSpy = spy(console, 'error');
+
     const action = new PlaceAction({
         x: -1,
         y: -1,
@@ -35,9 +38,15 @@ Deno.test('Place action with invalid x argument', () => {
         levelData: levels['5-5-blank'],
     });
     assertEquals(action.perform(['a', '1', 'NORTH']), false);
+    assertSpyCall(logSpy, 0, {
+        args: ['Error: X and Y must be non-negative integer'],
+    });
+    logSpy.restore();
 });
 
 Deno.test('Place action with invalid y argument', () => {
+    const logSpy = spy(console, 'error');
+
     const action = new PlaceAction({
         x: -1,
         y: -1,
@@ -46,9 +55,15 @@ Deno.test('Place action with invalid y argument', () => {
         levelData: levels['5-5-blank'],
     });
     assertEquals(action.perform(['1', 'a', 'NORTH']), false);
+    assertSpyCall(logSpy, 0, {
+        args: ['Error: X and Y must be non-negative integer'],
+    });
+    logSpy.restore();
 });
 
 Deno.test('Place action with invalid direction argument', () => {
+    const logSpy = spy(console, 'error');
+
     const action = new PlaceAction({
         x: -1,
         y: -1,
@@ -56,7 +71,13 @@ Deno.test('Place action with invalid direction argument', () => {
         translationOffset: translationRingBuffer.get(Direction.NORTH),
         levelData: levels['5-5-blank'],
     });
-    assertEquals(action.perform(['1', 'a', 'SOMETHING']), false);
+    assertEquals(action.perform(['0', '0', 'SOMETHING']), false);
+    assertSpyCall(logSpy, 0, {
+        args: [
+            "Error: Supported directions are ['NORTH', 'SOUTH', 'EAST', 'WEST']",
+        ],
+    });
+    logSpy.restore();
 });
 
 Deno.test('Place action with valid arguments', () => {

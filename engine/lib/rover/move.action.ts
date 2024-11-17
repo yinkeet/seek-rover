@@ -1,15 +1,14 @@
 import { Action } from './action.ts';
 import { directionCollisionRingBuffer } from '/lib/direction.ts';
-import { Metadata } from './metadata.ts';
+import { Metadata } from '/lib/metadata.ts';
 import { clamp } from '/lib/utils.ts';
 
 export class MoveAction implements Action {
     constructor(public metadata: Metadata) {}
 
     perform(_args?: string[]): boolean {
-        const tile =
-            this.metadata.levelData
-                .map[`${this.metadata.x}-${this.metadata.y}`];
+        const tile = this.metadata.levelData
+            .map[`${this.metadata.x}-${this.metadata.y}`];
         const direction = directionCollisionRingBuffer.get(
             this.metadata.direction,
         );

@@ -1,7 +1,7 @@
 import { levels } from '/levels/index.ts';
 import { Metadata } from '../../lib/metadata.ts';
 import { Direction, translationRingBuffer } from '/lib/direction.ts';
-import { MoveAction } from '/lib/move.action.ts';
+import { MoveAction } from '/lib/rover/move.action.ts';
 import { assertEquals } from 'jsr:@std/assert';
 
 Deno.test('Move action with string arguments', () => {

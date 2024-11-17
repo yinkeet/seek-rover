@@ -1,7 +1,7 @@
 import { levels } from '/levels/index.ts';
 import { Metadata } from '../../lib/metadata.ts';
 import { Direction, translationRingBuffer } from '/lib/direction.ts';
-import { RotateAction } from '/lib/rotate.action.ts';
+import { RotateAction } from '/lib/rover/rotate.action.ts';
 import { assertEquals } from 'jsr:@std/assert';
 
 Deno.test('Rotate action - right', () => {

@@ -3,11 +3,11 @@ import { Direction, translationRingBuffer } from './lib/direction.ts';
 import { levels } from '/levels/index.ts';
 import { Metadata } from './lib/metadata.ts';
 import { parseCommand } from './lib/command-parser.ts';
-import { PlaceAction } from './lib/place.action.ts';
-import { Action } from './lib/action.ts';
-import { MoveAction } from './lib/move.action.ts';
-import { RotateAction } from './lib/rotate.action.ts';
-import { ReportAction } from './lib/report.action.ts';
+import { PlaceAction } from './lib/rover/place.action.ts';
+import { Action } from './lib/rover/action.ts';
+import { MoveAction } from './lib/rover/move.action.ts';
+import { RotateAction } from './lib/rover/rotate.action.ts';
+import { ReportAction } from './lib/rover/report.action.ts';
 import { GameState } from './lib/gamestate.ts';
 
 let gameState = GameState.Loading;

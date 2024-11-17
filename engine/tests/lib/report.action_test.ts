@@ -1,7 +1,7 @@
 import { levels } from '/levels/index.ts';
 import { Metadata } from '../../lib/metadata.ts';
 import { Direction, translationRingBuffer } from '/lib/direction.ts';
-import { ReportAction } from '/lib/report.action.ts';
+import { ReportAction } from '/lib/rover/report.action.ts';
 import { assertEquals } from 'jsr:@std/assert';
 import { assertSpyCall, spy } from "jsr:@std/testing/mock";
 
