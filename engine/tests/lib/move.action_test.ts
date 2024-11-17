@@ -10,7 +10,7 @@ Deno.test('Move action with string arguments', () => {
         y: 1,
         direction: Direction.NORTH,
         translationOffset: translationRingBuffer.get(Direction.NORTH)[0],
-        levelMap: levels['5-5-blank'],
+        levelData: levels['5-5-blank'],
     };
     const action = new MoveAction(metadata);
     assertEquals(action.perform(undefined), true);
@@ -26,7 +26,7 @@ Deno.test('Move north', () => {
         y: 1,
         direction: Direction.NORTH,
         translationOffset: translationRingBuffer.get(Direction.NORTH)[0],
-        levelMap: levels['5-5-blank'],
+        levelData: levels['5-5-blank'],
     };
     const action = new MoveAction(metadata);
     assertEquals(action.perform(undefined), true);
@@ -42,7 +42,7 @@ Deno.test('Move south', () => {
         y: 1,
         direction: Direction.SOUTH,
         translationOffset: translationRingBuffer.get(Direction.SOUTH)[0],
-        levelMap: levels['5-5-blank'],
+        levelData: levels['5-5-blank'],
     };
     const action = new MoveAction(metadata);
     assertEquals(action.perform(undefined), true);
@@ -58,7 +58,7 @@ Deno.test('Move east', () => {
         y: 1,
         direction: Direction.EAST,
         translationOffset: translationRingBuffer.get(Direction.EAST)[0],
-        levelMap: levels['5-5-blank'],
+        levelData: levels['5-5-blank'],
     };
     const action = new MoveAction(metadata);
     assertEquals(action.perform(undefined), true);
@@ -74,12 +74,76 @@ Deno.test('Move west', () => {
         y: 1,
         direction: Direction.WEST,
         translationOffset: translationRingBuffer.get(Direction.WEST)[0],
-        levelMap: levels['5-5-blank'],
+        levelData: levels['5-5-blank'],
     };
     const action = new MoveAction(metadata);
     assertEquals(action.perform(undefined), true);
     assertEquals(metadata.x, 0);
     assertEquals(metadata.y, 1);
+    assertEquals(metadata.direction, Direction.WEST);
+    assertEquals(metadata.translationOffset, [-1, 0]);
+});
+
+Deno.test('Move north collide with wall', () => {
+    const metadata: Metadata = {
+        x: 0,
+        y: 4,
+        direction: Direction.NORTH,
+        translationOffset: translationRingBuffer.get(Direction.NORTH)[0],
+        levelData: levels['5-5-blank'],
+    };
+    const action = new MoveAction(metadata);
+    assertEquals(action.perform(undefined), true);
+    assertEquals(metadata.x, 0);
+    assertEquals(metadata.y, 4);
+    assertEquals(metadata.direction, Direction.NORTH);
+    assertEquals(metadata.translationOffset, [0, 1]);
+});
+
+Deno.test('Move south collide with wall', () => {
+    const metadata: Metadata = {
+        x: 0,
+        y: 0,
+        direction: Direction.SOUTH,
+        translationOffset: translationRingBuffer.get(Direction.SOUTH)[0],
+        levelData: levels['5-5-blank'],
+    };
+    const action = new MoveAction(metadata);
+    assertEquals(action.perform(undefined), true);
+    assertEquals(metadata.x, 0);
+    assertEquals(metadata.y, 0);
+    assertEquals(metadata.direction, Direction.SOUTH);
+    assertEquals(metadata.translationOffset, [0, -1]);
+});
+
+Deno.test('Move east collide with wall', () => {
+    const metadata: Metadata = {
+        x: 4,
+        y: 0,
+        direction: Direction.EAST,
+        translationOffset: translationRingBuffer.get(Direction.EAST)[0],
+        levelData: levels['5-5-blank'],
+    };
+    const action = new MoveAction(metadata);
+    assertEquals(action.perform(undefined), true);
+    assertEquals(metadata.x, 4);
+    assertEquals(metadata.y, 0);
+    assertEquals(metadata.direction, Direction.EAST);
+    assertEquals(metadata.translationOffset, [1, 0]);
+});
+
+Deno.test('Move west collide with wall', () => {
+    const metadata: Metadata = {
+        x: 0,
+        y: 0,
+        direction: Direction.WEST,
+        translationOffset: translationRingBuffer.get(Direction.WEST)[0],
+        levelData: levels['5-5-blank'],
+    };
+    const action = new MoveAction(metadata);
+    assertEquals(action.perform(undefined), true);
+    assertEquals(metadata.x, 0);
+    assertEquals(metadata.y, 0);
     assertEquals(metadata.direction, Direction.WEST);
     assertEquals(metadata.translationOffset, [-1, 0]);
 });
