@@ -27,7 +27,7 @@ export class PlaceAction implements Action {
         this.metadata.y = parseInt(args[1])
         const direction = Direction[args[2] as keyof typeof Direction];
         this.metadata.direction = direction;
-        this.metadata.translationOffset = translationRingBuffer.get(direction)[0];
+        this.metadata.translationOffset = translationRingBuffer.get(direction);
         return true;
     }
 }
