@@ -7,9 +7,9 @@ export class RingBuffer<T> {
         this.size = array.length;
     }
 
-    get(index: number): [T, number] {
+    get(index: number): T {
         if (index < 0) index += this.size;
         const newIndex = index % this.size;
-        return [this.array[newIndex], newIndex];
+        return this.array[newIndex];
     }
 }
