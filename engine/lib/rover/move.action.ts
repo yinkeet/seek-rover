@@ -20,13 +20,13 @@ export class MoveAction implements Action {
         // Clamp to boundaries
         this.metadata.x = clamp(
             this.metadata.x + this.metadata.translationOffset[0],
-            0,
-            this.metadata.levelData.width,
+            this.metadata.levelData.min.x,
+            this.metadata.levelData.max.x,
         );
         this.metadata.y = clamp(
             this.metadata.y + this.metadata.translationOffset[1],
-            0,
-            this.metadata.levelData.height,
+            this.metadata.levelData.min.y,
+            this.metadata.levelData.max.y,
         );
         return true;
     }

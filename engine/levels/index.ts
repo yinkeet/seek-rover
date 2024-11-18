@@ -5,9 +5,14 @@ export interface Level {
 }
 
 export interface LevelData {
-    width: number;
-    height: number;
+    min: Coordinate,
+    max: Coordinate,
     map: LevelMap;
+}
+
+export interface Coordinate {
+    x: number;
+    y: number;
 }
 
 export interface LevelMap {
