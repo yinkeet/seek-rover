@@ -1,4 +1,5 @@
 import blank_5_5 from "./blank-5-5.json" with { type: "json" };
+import no_walls_5_5 from "./no-walls-5-5.json" with { type: "json" };
 
 export interface Level {
     [id : string]: LevelData
@@ -24,5 +25,6 @@ export interface Tile {
 }
 
 export const levels: Level = {
-    "5-5-blank": blank_5_5 as LevelData
+    "5-5-blank": blank_5_5 as LevelData,
+    "5-5-no-walls": no_walls_5_5 as LevelData,
 }

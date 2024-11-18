@@ -1,4 +1,4 @@
-import { input } from 'npm:@inquirer/prompts';
+import { input, select } from 'npm:@inquirer/prompts';
 import { Direction, translationRingBuffer } from './lib/direction.ts';
 import { levels } from '/levels/index.ts';
 import { Metadata } from './lib/metadata.ts';
@@ -15,13 +15,24 @@ let gameState = GameState.Loading;
 // Angular steps
 const angularStep = 2;
 
+gameState = GameState.LevelSelect;
+const level = await select({
+    message: 'Choose a level',
+    choices: Object.keys(levels).map((name) => {
+        return {
+            name: name,
+            value: name
+        }
+    })
+});
+
 // Create a metadata object
 const metadata: Metadata = {
     x: -1,
     y: -1,
     direction: Direction.NORTH,
     translationOffset: translationRingBuffer.get(Direction.NORTH),
-    levelData: levels['5-5-blank'],
+    levelData: levels[level],
 };
 
 // Load all actions
