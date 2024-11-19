@@ -1,6 +1,28 @@
 # seek-rover
 
-## Direction Enum
+This project uses typescript and is powered by deno under the hood
+
+## Getting Started
+
+1. Start by running this command
+   ```bash
+   ./run.sh
+   ```
+
+1. Press `Ctrl+C` twice to exit
+
+## Testing
+
+1. Run tests with this command
+   ```bash
+   ./test.sh
+   ```
+
+## Preventing edge drops
+
+## Calculating wall collisions
+
+### Direction Enum
 
 | North | South | West | East | Integer |
 |-------|-------|------|------|---------|
@@ -29,7 +51,7 @@ The circular array/ring buffer for 8 axis directions are as such
 [8, 9, 1, 5, 4, 6, 2, 10]
 ```
 
-## Wall Enums
+### Wall Enums
 
 We are using binary bits to form the walls of the tiles.
 
