@@ -1,13 +1,14 @@
-import blank_5_5 from "./blank-5-5.json" with { type: "json" };
-import no_walls_5_5 from "./no-walls-5-5.json" with { type: "json" };
+import * as fs from 'node:fs';
 
 export interface Level {
-    [id : string]: LevelData
+    [id: string]: LevelData
 }
 
 export interface LevelData {
-    min: Coordinate,
-    max: Coordinate,
+    name: string;
+    description: string;
+    min: Coordinate;
+    max: Coordinate;
     map: LevelMap;
 }
 
@@ -17,14 +18,18 @@ export interface Coordinate {
 }
 
 export interface LevelMap {
-    [id: string]: Tile
+    [id: string]: Tile;
 }
 
 export interface Tile {
-    wall: number
+    wall: number;
 }
 
-export const levels: Level = {
-    "5-5-blank": blank_5_5 as LevelData,
-    "5-5-no-walls": no_walls_5_5 as LevelData,
-}
+export const levels: Level = {}
+
+const levelsPath = './levels/'
+const fileNames = fs.readdirSync(levelsPath).filter(file => file.match(/\.json$/));
+fileNames.forEach((fileName: string)=> {
+    const level = JSON.parse(fs.readFileSync(levelsPath + fileName, 'utf8').toString()) as LevelData
+    levels[level.name] = level
+});

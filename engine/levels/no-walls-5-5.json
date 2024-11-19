@@ -1,4 +1,6 @@
 {
+    "name": "5-5-no-walls",
+    "description": "No walls 5x5",
     "min": {
         "x": 0,
         "y": 0

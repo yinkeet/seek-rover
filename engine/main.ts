@@ -1,6 +1,5 @@
 import { input, select } from 'npm:@inquirer/prompts';
 import { Direction, translationRingBuffer } from './lib/direction.ts';
-import { levels } from '/levels/index.ts';
 import { Metadata } from './lib/metadata.ts';
 import { parseCommand } from './lib/command-parser.ts';
 import { PlaceAction } from './lib/rover/place.action.ts';
@@ -11,6 +10,7 @@ import { ReportAction } from './lib/rover/report.action.ts';
 import { GameState } from './lib/gamestate.ts';
 
 let gameState = GameState.Loading;
+import { levels } from '/levels/index.ts';
 
 // Angular steps
 const angularStep = 2;
@@ -18,10 +18,10 @@ const angularStep = 2;
 gameState = GameState.LevelSelect;
 const level = await select({
     message: 'Choose a level',
-    choices: Object.keys(levels).map((name) => {
+    choices: Object.values(levels).map((level) => {
         return {
-            name: name,
-            value: name
+            name: level.description,
+            value: level.name
         }
     })
 });
