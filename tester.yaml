@@ -1,0 +1,6 @@
+services:
+    engine:
+        extends:
+            file: common.yaml
+            service: engine
+        command: deno test --allow-read
