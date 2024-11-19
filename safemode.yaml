@@ -1,10 +1,4 @@
 services:
-    frontend:
-        extends:
-            file: common.yaml
-            service: frontend
-        command: /bin/bash
-
     engine:
         extends:
             file: common.yaml

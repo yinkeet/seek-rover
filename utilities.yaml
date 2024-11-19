@@ -1,5 +1,0 @@
-services:
-    redisinsight:
-        image: redis/redisinsight:latest
-        ports:
-            - 5540:5540
