@@ -4,6 +4,8 @@ import { Metadata } from '/lib/metadata.ts';
 import { clamp } from '/lib/utils.ts';
 
 export class MoveAction implements Action {
+    id = "MOVE"
+
     constructor(public metadata: Metadata) {}
 
     perform(_args?: string[]): boolean {

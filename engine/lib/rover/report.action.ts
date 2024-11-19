@@ -3,6 +3,8 @@ import { Direction } from '/lib/direction.ts';
 import { Metadata } from '/lib/metadata.ts';
 
 export class ReportAction implements Action {
+    id = "REPORT"
+
     constructor(public metadata: Metadata) {}
 
     perform(_args?: string[]): boolean {

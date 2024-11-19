@@ -4,6 +4,8 @@ import { Direction, translationRingBuffer } from '/lib/direction.ts';
 import { z } from 'npm:zod';
 
 export class PlaceAction implements Action {
+    id = "PLACE"
+
     constructor(public metadata: Metadata) {}
 
     perform(args?: string[]): boolean {

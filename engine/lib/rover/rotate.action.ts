@@ -3,6 +3,8 @@ import { directionRingBuffer, translationRingBuffer } from '/lib/direction.ts';
 import { Metadata } from '/lib/metadata.ts';
 
 export class RotateAction implements Action {
+    id = "ROTATE"
+
     constructor(public metadata: Metadata, public angularStep: number) {}
 
     perform(_args?: string[]): boolean {

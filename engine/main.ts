@@ -2,11 +2,7 @@ import { input, select } from 'npm:@inquirer/prompts';
 import { Direction, translationRingBuffer } from './lib/direction.ts';
 import { Metadata } from './lib/metadata.ts';
 import { parseCommand } from './lib/command-parser.ts';
-import { PlaceAction } from './lib/rover/place.action.ts';
-import { Action } from './lib/rover/action.ts';
-import { MoveAction } from './lib/rover/move.action.ts';
-import { RotateAction } from './lib/rover/rotate.action.ts';
-import { ReportAction } from './lib/rover/report.action.ts';
+import { ACTION_ID_PLACE, useActions } from './lib/rover/index.ts';
 import { GameState } from './lib/gamestate.ts';
 
 let gameState = GameState.Loading;
@@ -16,7 +12,7 @@ import { levels } from '/levels/index.ts';
 const angularStep = 2;
 
 gameState = GameState.LevelSelect;
-const level = await select({
+const level = await select<string>({
     message: 'Choose a level',
     choices: Object.values(levels).map((level) => {
         return {
@@ -36,13 +32,7 @@ const metadata: Metadata = {
 };
 
 // Load all actions
-const actions: { [id: string]: Action } = {
-    'PLACE': new PlaceAction(metadata),
-    'MOVE': new MoveAction(metadata),
-    'LEFT': new RotateAction(metadata, -angularStep),
-    'RIGHT': new RotateAction(metadata, angularStep),
-    'REPORT': new ReportAction(metadata),
-};
+const actions = useActions(metadata, angularStep);
 
 gameState = GameState.Init;
 
@@ -51,7 +41,7 @@ while (gameState === GameState.Init) {
     const [argc, argv] = parseCommand(command.trim());
     if (!(argc in actions)) {
         console.error('Invalid command');
-    } else if (argc.toUpperCase() !== 'PLACE') {
+    } else if (argc.toUpperCase() !== ACTION_ID_PLACE) {
         console.log('Place a rover to start');
     } else {
         actions[argc].perform(argv);
