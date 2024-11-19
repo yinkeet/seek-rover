@@ -23,5 +23,4 @@ services:
         env_file:
             - .env
         environment:
-            PORT: ${ENGINE_PORT}
             TZ: Asia/Kuala_Lumpur
