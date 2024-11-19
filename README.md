@@ -20,6 +20,11 @@ This project uses typescript and is powered by deno under the hood
 
 ## Preventing edge drops
 
+To prevent rover from falling to its dismay, we need to know the lower left most point and the top right point of the level.
+
+Everytime a move command is issued, we add one to the direction the rover is moving and we clamp the position to the min and max point of that axis.
+The min and max point of an axis is derived from the lower left point and top right point contained in the level data.
+
 ## Calculating wall collisions
 
 ### Direction Enum
