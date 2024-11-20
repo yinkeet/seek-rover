@@ -81,3 +81,45 @@ We are using binary bits to form the walls of the tiles.
 | 1          | 1          | 0         | 1         | 13      |
 | 1          | 1          | 1         | 0         | 14      |
 | 1          | 1          | 1         | 1         | 15      |
+
+## Adding levels
+
+To add levels, just create a json that has the following format to the `engine/levels` folder, make sure you give it a unique name and description.
+```json
+{
+   "name": "LEVEL_NAME",
+   "description": "LEVEL_DESCRIPTION",
+   "min": {
+      "x": 0,
+      "y": 0
+   },
+   "max": {
+      "x": 1,
+      "y": 1
+   },
+   "map": {
+      "1-1": {
+         "wall": 0
+      },
+      "1-0": {
+         "wall": 0
+      },
+      "0-1": {
+         "wall": 0
+      },
+      "0-0": {
+         "wall": 0
+      },
+   }
+}
+```
+Properties `min` and `max` defines the bottom left corner and top right corner of the map.
+Property `map` contains all the tiles of the map. For example if you were to create a 2x2 map then you should have 4 elements here.
+As for the `wall` property in every tile, you can choose the variation from the wall table above.
+
+## Adding actions
+
+To add actions, you need to 
+1. Implement the `action` interface.
+2. Register the class that you have created to the `useActions` function that is located in `engine/lib/rover/index.ts`.
+3. To keep it concise, it is recommended that you also create an `ACTION_ID` constant in `engine/lib/rover/constants.ts` and use that when you register the class.
