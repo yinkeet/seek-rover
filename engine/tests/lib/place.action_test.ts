@@ -3,7 +3,7 @@ import { Metadata } from '../../lib/metadata.ts';
 import { Direction, translationRingBuffer } from '/lib/direction.ts';
 import { PlaceAction } from '/lib/rover/place.action.ts';
 import { assertEquals } from 'jsr:@std/assert';
-import { assertSpyCall, assertSpyCalls, spy } from 'jsr:@std/testing/mock';
+import { assertSpyCall, spy } from 'jsr:@std/testing/mock';
 
 Deno.test('Place action with undefined arguments', () => {
     const logSpy = spy(console, 'error');
@@ -54,11 +54,11 @@ Deno.test('Place action with invalid x argument', () => {
         args: ['Error: X must be an integer between 0 and 4'],
     });
     assertEquals(action.perform(['-1', '1', 'NORTH']), false);
-    assertSpyCall(logSpy, 0, {
+    assertSpyCall(logSpy, 1, {
         args: ['Error: X must be an integer between 0 and 4'],
     });
     assertEquals(action.perform(['5', '1', 'NORTH']), false);
-    assertSpyCall(logSpy, 0, {
+    assertSpyCall(logSpy, 2, {
         args: ['Error: X must be an integer between 0 and 4'],
     });
     logSpy.restore();
@@ -79,11 +79,11 @@ Deno.test('Place action with invalid y argument', () => {
         args: ['Error: Y must be an integer between 0 and 4'],
     });
     assertEquals(action.perform(['1', '-1', 'NORTH']), false);
-    assertSpyCall(logSpy, 0, {
+    assertSpyCall(logSpy, 1, {
         args: ['Error: Y must be an integer between 0 and 4'],
     });
     assertEquals(action.perform(['1', '5', 'NORTH']), false);
-    assertSpyCall(logSpy, 0, {
+    assertSpyCall(logSpy, 2, {
         args: ['Error: Y must be an integer between 0 and 4'],
     });
     logSpy.restore();
