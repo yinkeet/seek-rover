@@ -5,16 +5,10 @@ import { z, ZodError, ZodIssue } from 'npm:zod';
 
 export class PlaceAction implements Action {
     id = "PLACE"
+    private schema;
 
-    constructor(public metadata: Metadata) {}
-
-    perform(args?: string[]): boolean {
-        if (args === undefined || args.length != 3) {
-            console.error('Error: X, Y and direction required')
-            return false;
-        }
-
-        const schema = z.tuple([
+    constructor(public metadata: Metadata) {
+        this.schema = z.tuple([
             // Validation for x
             z.coerce.number({
                 errorMap: () => ( { message: `Error: X must be an integer between ${this.metadata.levelData.min.x} and ${this.metadata.levelData.max.x}` } )
@@ -28,8 +22,15 @@ export class PlaceAction implements Action {
                 message: "Error: Supported directions are ['NORTH', 'SOUTH', 'EAST', 'WEST']"
             }),
         ]);
+    }
 
-        const result = schema.safeParse(args)
+    perform(args?: string[]): boolean {
+        if (args === undefined || args.length != 3) {
+            console.error('Error: X, Y and direction required')
+            return false;
+        }
+
+        const result = this.schema.safeParse(args)
         if (!result.success) {
             result.error.issues.forEach((issue) => {
                 console.error(issue.message)        
