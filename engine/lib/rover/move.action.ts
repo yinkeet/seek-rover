@@ -9,11 +9,10 @@ export class MoveAction implements Action {
     constructor(public metadata: Metadata) {}
 
     perform(_args?: string[]): boolean {
-        const tile = this.metadata.levelData
-            .map[`${this.metadata.x}-${this.metadata.y}`];
-        const direction = directionCollisionRingBuffer.get(
-            this.metadata.direction,
-        );
+        // Get the tile that the rover is occupying
+        const tile = this.metadata.levelData.map[`${this.metadata.x}-${this.metadata.y}`];
+        // Get the direction for collision detection
+        const direction = directionCollisionRingBuffer.get(this.metadata.direction);
 
         // Collision with wall
         if (tile.wall && direction) return true;
