@@ -27,6 +27,9 @@ The min and max point of an axis is derived from the lower left point and top ri
 
 ## Calculating wall collisions
 
+To calculate wall collisions we get the direction of the rover, get the corresponding direction enum and perform an AND operation with current tile it is occupying.
+If the end results is true, we get a wall hit.
+
 ### Direction Enum
 
 | North | South | West | East | Integer |
