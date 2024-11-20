@@ -1,7 +1,7 @@
 import { Action } from './action.ts';
 import { Metadata } from '/lib/metadata.ts';
 import { Direction, translationRingBuffer } from '/lib/direction.ts';
-import { z, ZodError, ZodIssue } from 'npm:zod';
+import { z } from 'npm:zod';
 
 export class PlaceAction implements Action {
     id = "PLACE"
